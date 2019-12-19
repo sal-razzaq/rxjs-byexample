@@ -85,7 +85,7 @@ export class AppComponent implements OnInit {
         });
 
     // Operators to exercise
-    // filter, delay, throttleTime, debounceTime, take, takeUntil, switchMap, pluck
+    // filter, delay, throttleTime, debounceTime, take, takeUntil, switchMap, pluck, retry
 
 
     console.log('== fromPromise ==', 'Turn a Promise into an Observable');
