@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,21 +11,19 @@ export class AppComponent implements OnInit {
   title = 'rxjs-demo';
 
   ngOnInit(): void {
-
-    console.log('AppComponent.ngOnInit()');
-    
     console.log('== of operator ==', 'Create an Observable from an object');
-    const num: Number = 1;
-    const numObs: Observable<Number> = of(num);
-    numObs.subscribe(data => console.log(data));
+    const num$: Observable<Number> = of(1);
+    num$.subscribe(data => console.log(data));
 
-    const nums: Number[] = [1, 2, 3, 4];
-    const numsObs: Observable<Number[]> = of(nums);
-    numsObs.subscribe(data => console.log(data));
+    const str$: Observable<string> = of('string data');
+    str$.subscribe(data => console.log(data));
 
-    const str: string = 'string data';
-    const strObs: Observable<string> = of(str);
-    strObs.subscribe(data => console.log(data));
+    const mixed$: Observable<any> = of(1, 'string data');
+    mixed$.subscribe(data => console.log(data));
+
+    console.log('== from operator ==', 'Create an Observable from an array');
+    const arr$: Observable<Number> = from([1, 2, 3, 4]);
+    arr$.subscribe(data => console.log(data));
 
     console.log('== from operator ==', 'Turn a Promise into an Observable');
   }
