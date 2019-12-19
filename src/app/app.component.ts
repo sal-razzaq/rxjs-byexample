@@ -31,12 +31,7 @@ export class AppComponent implements OnInit {
     const docClick$ = fromEvent(document, 'click')
     docClick$.subscribe(data => console.log(data));
 
-    console.log('== fromPromise ==', 'Turn a Promise into an Observable');
-    const todo$ = from(fetch('https://jsonplaceholder.typicode.com/todos/1'))
-      .pipe(map(response => response.json()));
-    todo$.subscribe(data => {
-      data.then(data => console.log(data));
-    });
+
 
     console.log('== create ==', 'Create an observable (cast internally to subscribers; cold observable)');
     const custom$ = Observable.create(observer => {
@@ -73,10 +68,13 @@ export class AppComponent implements OnInit {
       .pipe(catchError(err => {
         console.log("Remove any spinners, wait indicators:", err)
         return throwError(err);   // bubble up the error
-        // return of(null);
+        // return of(null);   // to suppress the error
       }))
       .subscribe(
         data => {
+          if (!data) {   // data will be null if catchError return of(null)
+            return;
+          }
           try {
             console.log('Subscriber', data);
             throw "Error in data processing";
@@ -84,5 +82,12 @@ export class AppComponent implements OnInit {
             console.log("Remove any spinners, wait indicators:", err);
           }
         });
+
+    console.log('== fromPromise ==', 'Turn a Promise into an Observable');
+    const todo$ = from(fetch('https://jsonplaceholder.typicode.com/todos/1'))
+      .pipe(map(response => response.json()));
+    todo$.subscribe(data => {
+      data.then(data => console.log(data));
+    });
   }
 }
