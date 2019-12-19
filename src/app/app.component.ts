@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of, from, fromEvent, Subject, BehaviorSubject, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { ConsoleReporter } from 'jasmine';
+
+// Reference: http://reactivex.io/rxjs/manual/tutorial.html
 
 @Component({
   selector: 'app-root',
@@ -82,6 +83,10 @@ export class AppComponent implements OnInit {
             console.log("Remove any spinners, wait indicators:", err);
           }
         });
+
+    // Operators to exercise
+    // filter, delay, throttleTime, debounceTime, take, takeUntil, switchMap, pluck
+
 
     console.log('== fromPromise ==', 'Turn a Promise into an Observable');
     const todo$ = from(fetch('https://jsonplaceholder.typicode.com/todos/1'))
